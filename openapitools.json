@@ -12,7 +12,8 @@
         "additionalProperties": {
           "packageName": "xendit_subscription",
           "withGoMod": false,
-          "isGoSubmodule": true
+          "isGoSubmodule": true,
+          "enumClassPrefix": true
         },
         "globalProperty": {
           "apiDocs": false,
