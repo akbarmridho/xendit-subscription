@@ -1,14 +1,14 @@
 import "./plan.tsp";
 import "./cycle.tsp";
 
-alias BaseCallback<Payload> = {
+model BaseCallback<Payload> {
     event: string;
     business_id: string;
     created: utcDateTime;
     data?: Payload;
     api_version?: string;
-};
+}
 
-alias PlanCallback = BaseCallback<Plan>;
+model PlanCallback extends BaseCallback<Plan> {}
 
-alias CycleCallback = BaseCallback<Cycle>;
+model CycleCallback extends BaseCallback<Cycle> {}

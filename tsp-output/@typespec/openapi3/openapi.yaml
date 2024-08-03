@@ -23,41 +23,9 @@ paths:
               type: object
               properties:
                 planCb:
-                  type: object
-                  properties:
-                    event:
-                      type: string
-                    business_id:
-                      type: string
-                    created:
-                      type: string
-                      format: date-time
-                    data:
-                      $ref: '#/components/schemas/Plan'
-                    api_version:
-                      type: string
-                  required:
-                    - event
-                    - business_id
-                    - created
+                  $ref: '#/components/schemas/PlanCallback'
                 cycleCb:
-                  type: object
-                  properties:
-                    event:
-                      type: string
-                    business_id:
-                      type: string
-                    created:
-                      type: string
-                      format: date-time
-                    data:
-                      $ref: '#/components/schemas/Cycle'
-                    api_version:
-                      type: string
-                  required:
-                    - event
-                    - business_id
-                    - created
+                  $ref: '#/components/schemas/CycleCallback'
               required:
                 - planCb
                 - cycleCb
@@ -1060,6 +1028,26 @@ components:
           type: integer
           format: int32
           description: Amount that recurring plan will charge to end users. Min - IDR 1,000 (Indonesia) / PHP 50 (Philippines)
+    CycleCallback:
+      type: object
+      allOf:
+        - type: object
+          required:
+            - event
+            - business_id
+            - created
+          properties:
+            event:
+              type: string
+            business_id:
+              type: string
+            created:
+              type: string
+              format: date-time
+            data:
+              $ref: '#/components/schemas/Cycle'
+            api_version:
+              type: string
     CycleStatus:
       type: string
       enum:
@@ -1309,6 +1297,26 @@ components:
           type: string
           description: URL where the end-customer is redirected if the account linking has failed
       description: Represents a Subscriptions plan
+    PlanCallback:
+      type: object
+      allOf:
+        - type: object
+          required:
+            - event
+            - business_id
+            - created
+          properties:
+            event:
+              type: string
+            business_id:
+              type: string
+            created:
+              type: string
+              format: date-time
+            data:
+              $ref: '#/components/schemas/Plan'
+            api_version:
+              type: string
     PlanCreate.PlanDto:
       type: object
       properties:
