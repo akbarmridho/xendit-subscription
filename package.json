@@ -7,7 +7,8 @@
   "license": "ISC",
   "scripts": {
     "compile": "npx tsp compile typespec",
-    "serve": "npx tsp compile typespec && npx open-swagger-ui ./typespec/tsp-output/@typespec/openapi3/openapi.yaml --port 5000 --open"
+    "serve": "npx tsp compile typespec && npx open-swagger-ui ./tsp-output/@typespec/openapi3/openapi.yaml --port 5000 --open",
+    "generate": "npx openapi-generator-cli generate"
   },
   "peerDependencies": {
     "@typespec/compiler": "latest",
@@ -16,6 +17,7 @@
     "@typespec/rest": "latest"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.4",
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
     "@typespec/openapi3": "latest",

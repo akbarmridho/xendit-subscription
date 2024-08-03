@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.7.0",
+    "generators": {
+      "golang": {
+        "inputSpec": "tsp-output/@typespec/openapi3/openapi.yaml",
+        "output": "./client",
+        "generatorName": "go",
+        "packageName": "xendit_subscription",
+        "additionalProperties": {
+          "packageName": "xendit_subscription",
+          "withGoMod": false,
+          "isGoSubmodule": true
+        },
+        "globalProperty": {
+          "apiDocs": false,
+          "apiTests": false,
+          "modelDocs": false,
+          "modelTests": false,
+          "verbose": false
+        }
+      }
+    }
+  }
+}
