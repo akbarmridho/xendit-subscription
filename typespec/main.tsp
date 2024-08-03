@@ -3,6 +3,8 @@ import "@typespec/rest";
 import "@typespec/openapi3";
 import "./request/plan-create.tsp";
 import "./request/plan-update.tsp";
+import "./request/cycles-update.tsp";
+import "./request/schedule-update.tsp";
 import "./model/responses.tsp";
 import "./model/cycle.tsp";
 import "./model/callback.tsp";
@@ -33,7 +35,7 @@ namespace Xendit {
             @patch
             op update(
                 @path id: string,
-                @header `update-scheduled-cycle`: "TRUE",
+                @header `update-scheduled-cycle`?: "TRUE",
                 @body body: PlanUpdate.PlanDto,
             ):
                 | PayloadResponse<Plan>
@@ -74,16 +76,65 @@ namespace Xendit {
 
         @route("/plans/{plan_id}/cycles")
         namespace Cycles {
-            @route("/{id}/force_attempt")
-            @post
-            op forceCycleAttempt(
+            @route("/{id}")
+            @patch
+            op update(
                 @path plan_id: string,
                 @path id: string,
-                @body body: void,
+                @body body: CycleUpdate.CycleDto,
             ):
+                | PayloadResponse<Cycle>
+                | ApiValidationErrorResponse
+                | InvalidApiKeyErrorResponse
+                | IneligibleCycleRequestResponse
+                | DataNotFoundResponse;
+
+            @route("/{id}/cancel")
+            @post
+            op cancel(@path plan_id: string, @path id: string):
+                | PayloadResponse<Cycle>
+                | ApiValidationErrorResponse
+                | InvalidApiKeyErrorResponse
+                | IneligibleCycleRequestResponse
+                | DataNotFoundResponse;
+
+            @route("/{id}/force_attempt")
+            @post
+            op forceCycleAttempt(@path plan_id: string, @path id: string):
                 | PayloadResponse<Cycle>
                 | IneligibleCycleRequestResponse
                 | MaximumLimitReachedResponse
+                | DataNotFoundResponse;
+
+            @route("/{id}")
+            @get
+            op fetchObject(@path plan_id: string, @path id: string):
+                | PayloadResponse<Cycle>
+                | ApiValidationErrorResponse
+                | InvalidApiKeyErrorResponse
+                | DataNotFoundResponse;
+        }
+
+        @route("/schedules")
+        namespace Schedules {
+            @route("/{id}")
+            @patch
+            op update(
+                @path plan_id: string,
+                @path id: string,
+                @body body: ScheduleUpdate.ScheduleDto,
+            ):
+                | PayloadResponse<Schedule>
+                | ApiValidationErrorResponse
+                | InvalidApiKeyErrorResponse
+                | DataNotFoundResponse;
+
+            @route("/{id}")
+            @get
+            op fetchObject(@path id: string):
+                | PayloadResponse<Schedule>
+                | ApiValidationErrorResponse
+                | InvalidApiKeyErrorResponse
                 | DataNotFoundResponse;
         }
     }

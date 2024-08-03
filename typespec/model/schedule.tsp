@@ -1,3 +1,9 @@
+enum ScheduleIntervalEnum {
+    DAY: "DAY",
+    WEEK: "WEEK",
+    MONTH: "MONTH",
+}
+
 @doc("Represents the schedule configuration for a Subscriptions plan")
 model Schedule {
     @doc("Xendit-generated Subscriptions schedule ID")
@@ -10,7 +16,7 @@ model Schedule {
     business_id: string;
 
     @doc("The type of interval between consecutive Subscriptions cycles")
-    interval: "DAY" | "WEEK" | "MONTH";
+    interval: ScheduleIntervalEnum;
 
     @doc("The number of units of interval between consecutive Subscriptions cycles")
     interval_count: int32;

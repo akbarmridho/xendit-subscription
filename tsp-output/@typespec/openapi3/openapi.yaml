@@ -161,7 +161,7 @@ paths:
             type: string
         - name: update-scheduled-cycle
           in: header
-          required: true
+          required: false
           schema:
             type: string
             enum:
@@ -463,6 +463,250 @@ paths:
                 required:
                   - error_code
                   - message
+  /recurring/plans/{plan_id}/cycles/{id}:
+    patch:
+      operationId: Cycles_update
+      parameters:
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cycle'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - API_VALIDATION_ERROR
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INVALID_API_KEY
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '403':
+          description: Access is forbidden.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INELIGIBLE_CYCLE_REQUEST
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - DATA_NOT_FOUND
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CycleUpdate.CycleDto'
+    get:
+      operationId: Cycles_fetchObject
+      parameters:
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cycle'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - API_VALIDATION_ERROR
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INVALID_API_KEY
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - DATA_NOT_FOUND
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+  /recurring/plans/{plan_id}/cycles/{id}/cancel:
+    post:
+      operationId: Cycles_cancel
+      parameters:
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cycle'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - API_VALIDATION_ERROR
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INVALID_API_KEY
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '403':
+          description: Access is forbidden.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INELIGIBLE_CYCLE_REQUEST
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - DATA_NOT_FOUND
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
   /recurring/plans/{plan_id}/cycles/{id}/force_attempt:
     post:
       operationId: Cycles_forceCycleAttempt
@@ -528,6 +772,145 @@ paths:
                 required:
                   - error_code
                   - message
+  /recurring/schedules/{id}:
+    get:
+      operationId: Schedules_fetchObject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - API_VALIDATION_ERROR
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INVALID_API_KEY
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - DATA_NOT_FOUND
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+  /recurring/schedules/{id}/{plan_id}:
+    patch:
+      operationId: Schedules_update
+      parameters:
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - API_VALIDATION_ERROR
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INVALID_API_KEY
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - DATA_NOT_FOUND
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleUpdate.ScheduleDto'
 security:
   - BasicAuth: []
 components:
@@ -577,11 +960,8 @@ components:
           type: string
           description: ID of associated action (e.g. payment ID)
         status:
-          type: string
-          enum:
-            - SUCCEEDED
-            - FAILED
-            - PENDING
+          allOf:
+            - $ref: '#/components/schemas/AttemptDetailEnum'
           description: Status of action
         failure_code:
           type: string
@@ -590,6 +970,17 @@ components:
           type: string
           format: date-time
           description: ISO 8601 Estimated timestamp for next retry. Timezone UTC+0
+    AttemptDetailEnum:
+      type: string
+      enum:
+        - SUCCEEDED
+        - FAILED
+        - PENDING
+    CurrencyEnum:
+      type: string
+      enum:
+        - IDR
+        - PHP
     Cycle:
       type: object
       required:
@@ -629,10 +1020,8 @@ components:
             - PAYMENT
           description: The type of recurring action requested, inherited from the recurring plan object
         type:
-          type: string
-          enum:
-            - SCHEDULED
-            - IMMEDIATE
+          allOf:
+            - $ref: '#/components/schemas/CycleType'
           description: The type of recurring cycle
         cycle_number:
           type: integer
@@ -649,14 +1038,8 @@ components:
             $ref: '#/components/schemas/AttemptDetail'
           description: Detailed information of each action attempts
         status:
-          type: string
-          enum:
-            - SCHEDULED
-            - PENDING
-            - RETRYING
-            - FAILED
-            - SUCCEEDED
-            - CANCELLED
+          allOf:
+            - $ref: '#/components/schemas/CycleStatus'
           description: Status of recurring cycle
         scheduled_timestamp:
           type: string
@@ -670,15 +1053,43 @@ components:
           format: date-time
           description: ISO 8601 Timestamp for latest cycle object update. Timezone UTC+0
         currency:
-          type: string
-          enum:
-            - IDR
-            - PHP
+          allOf:
+            - $ref: '#/components/schemas/CurrencyEnum'
           description: ISO 4217 currency code of recurring plan
         amount:
           type: integer
           format: int32
           description: Amount that recurring plan will charge to end users. Min - IDR 1,000 (Indonesia) / PHP 50 (Philippines)
+    CycleStatus:
+      type: string
+      enum:
+        - SCHEDULED
+        - PENDING
+        - RETRYING
+        - FAILED
+        - SUCCEEDED
+        - CANCELLED
+    CycleType:
+      type: string
+      enum:
+        - SCHEDULED
+        - IMMEDIATE
+    CycleUpdate.CycleDto:
+      type: object
+      properties:
+        scheduled_timestamp:
+          type: string
+          format: date-time
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+        amount:
+          type: integer
+          format: int32
+    FailedCycleActionEnum:
+      type: string
+      enum:
+        - RESUME
+        - STOP
     Item:
       type: object
       required:
@@ -688,14 +1099,8 @@ components:
         - quantity
       properties:
         type:
-          type: string
-          enum:
-            - DIGITAL_PRODUCT
-            - PHYSICAL_PRODUCT
-            - DIGITAL_SERVICE
-            - PHYSICAL_SERVICE
-            - FEE
-            - DISCOUNT
+          allOf:
+            - $ref: '#/components/schemas/ItemTypeEnum'
           description: Type of item
         name:
           type: string
@@ -729,32 +1134,37 @@ components:
           additionalProperties: {}
           description: Additional object that may be used for additional item attributes
       description: Represents an item in a Subscriptions plan
+    ItemTypeEnum:
+      type: string
+      enum:
+        - DIGITAL_PRODUCT
+        - PHYSICAL_PRODUCT
+        - DIGITAL_SERVICE
+        - PHYSICAL_SERVICE
+        - FEE
+        - DISCOUNT
+    NotificationChannelEnum:
+      type: string
+      enum:
+        - WHATSAPP
+        - EMAIL
     NotificationConfig:
       type: object
       properties:
         recurring_created:
           type: array
           items:
-            type: string
-            enum:
-              - WHATSAPP
-              - EMAIL
+            $ref: '#/components/schemas/NotificationChannelEnum'
           description: Specify which channel you want to notify your end customer through when a Subscriptions plan is created
         recurring_succeeded:
           type: array
           items:
-            type: string
-            enum:
-              - WHATSAPP
-              - EMAIL
+            $ref: '#/components/schemas/NotificationChannelEnum'
           description: Specify which channel you want to notify your end customer through when a Subscriptions cycle was successfully completed
         recurring_failed:
           type: array
           items:
-            type: string
-            enum:
-              - WHATSAPP
-              - EMAIL
+            $ref: '#/components/schemas/NotificationChannelEnum'
           description: Specify which channel you want to notify your end customer through when a Subscriptions cycle has failed
         locale:
           type: string
@@ -780,13 +1190,16 @@ components:
           maximum: 5
           description: Indicate the order which payments methods will be attempted for a payment cycle instance.
         type:
-          type: string
-          enum:
-            - EWALLET
-            - DIRECT_DEBIT
-            - CARD
+          allOf:
+            - $ref: '#/components/schemas/PaymentMethodTypeEnum'
           description: Type of payment method
       description: Represents a payment method for a Subscriptions plan
+    PaymentMethodTypeEnum:
+      type: string
+      enum:
+        - EWALLET
+        - DIRECT_DEBIT
+        - CARD
     Plan:
       type: object
       required:
@@ -823,22 +1236,16 @@ components:
           format: int32
           description: Total number of cycles the Subscriptions plan has executed. Immediate charge cycle also counts as 1 cycle count
         currency:
-          type: string
-          enum:
-            - IDR
-            - PHP
+          allOf:
+            - $ref: '#/components/schemas/CurrencyEnum'
           description: ISO 4217 currency code of Subscriptions plan
         amount:
           type: integer
           format: int32
           description: Amount that Subscriptions plan will charge to end users. Min - Rp 1000 (Indonesia) or PHP 50 (Philippines)
         status:
-          type: string
-          enum:
-            - ACTIVE
-            - INACTIVE
-            - PENDING
-            - REQUIRES_ACTION
+          allOf:
+            - $ref: '#/components/schemas/PlanStatus'
           description: Status of Subscriptions plan
         created:
           type: string
@@ -873,10 +1280,8 @@ components:
           type: boolean
           description: Indicates whether the plan should generate a payment link to be sent to the end customer when the first attempt of the cycle fails
         failed_cycle_action:
-          type: string
-          enum:
-            - RESUME
-            - STOP
+          allOf:
+            - $ref: '#/components/schemas/FailedCycleActionEnum'
           description: Indicate the behaviour the Subscriptions plan should take when Subscriptions cycles fail
         metadata:
           type: object
@@ -936,11 +1341,8 @@ components:
               type: string
               description: Merchant-provided identifier for the schedule
             interval:
-              type: string
-              enum:
-                - DAY
-                - WEEK
-                - MONTH
+              allOf:
+                - $ref: '#/components/schemas/ScheduleIntervalEnum'
               description: The type of interval between consecutive Subscriptions cycles
             interval_count:
               type: integer
@@ -994,10 +1396,8 @@ components:
                 - PAYMENT
               description: The type of Subscriptions action requested
             currency:
-              type: string
-              enum:
-                - IDR
-                - PHP
+              allOf:
+                - $ref: '#/components/schemas/CurrencyEnum'
               description: ISO 4217 currency code of Subscriptions plan
             amount:
               type: integer
@@ -1016,10 +1416,8 @@ components:
               type: boolean
               description: Indicates whether the plan should generate a payment link to be sent to the end customer when the first attempt of the cycle fails
             failed_cycle_action:
-              type: string
-              enum:
-                - RESUME
-                - STOP
+              allOf:
+                - $ref: '#/components/schemas/FailedCycleActionEnum'
               description: Indicate the behaviour the Subscriptions plan should take when Subscriptions cycles fail
             metadata:
               type: object
@@ -1047,6 +1445,13 @@ components:
               type: string
               description: URL where the end-customer is redirected if the account linking has failed
           description: The template for omitting properties.
+    PlanStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - INACTIVE
+        - PENDING
+        - REQUIRES_ACTION
     PlanUpdate.PlanDto:
       type: object
       properties:
@@ -1054,10 +1459,8 @@ components:
           type: string
           description: Xendit-generated customer ID, with prefix cust-xxx
         currency:
-          type: string
-          enum:
-            - IDR
-            - PHP
+          allOf:
+            - $ref: '#/components/schemas/CurrencyEnum'
           description: ISO 4217 currency code of Subscriptions plan
         amount:
           type: integer
@@ -1129,11 +1532,8 @@ components:
           type: string
           description: Xendit-generated identifier for the business
         interval:
-          type: string
-          enum:
-            - DAY
-            - WEEK
-            - MONTH
+          allOf:
+            - $ref: '#/components/schemas/ScheduleIntervalEnum'
           description: The type of interval between consecutive Subscriptions cycles
         interval_count:
           type: integer
@@ -1178,6 +1578,45 @@ components:
             format: int32
           description: Specify which retry attempts will have failed Subscriptions notifications to the end user
       description: Represents the schedule configuration for a Subscriptions plan
+    ScheduleIntervalEnum:
+      type: string
+      enum:
+        - DAY
+        - WEEK
+        - MONTH
+    ScheduleUpdate.ScheduleDto:
+      type: object
+      properties:
+        interval:
+          $ref: '#/components/schemas/ScheduleIntervalEnum'
+        interval_count:
+          type: integer
+          format: int32
+        total_recurrence:
+          type: integer
+          format: int32
+          nullable: true
+        anchor_date:
+          type: string
+          format: date-time
+        retry_interval:
+          type: string
+          enum:
+            - DAY
+        retry_interval_count:
+          type: integer
+          format: int32
+        total_retry:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 10
+        failed_attempt_notifications:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Specify which retry attempts will have failed Subscriptions notifications to the end user
   securitySchemes:
     BasicAuth:
       type: http

@@ -1,5 +1,32 @@
 import "./schedule.tsp";
+import "./enum.tsp";
 import "./payment-method.tsp";
+
+enum PlanStatus {
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    PENDING: "PENDING",
+    REQUIRES_ACTION: "REQUIRES_ACTION",
+}
+
+enum FailedCycleActionEnum {
+    RESUME: "RESUME",
+    STOP: "STOP",
+}
+
+enum NotificationChannelEnum {
+    WHATSAPP: "WHATSAPP",
+    EMAIL: "EMAIL",
+}
+
+enum ItemTypeEnum {
+    DIGITAL_PRODUCT: "DIGITAL_PRODUCT",
+    PHYSICAL_PRODUCT: "PHYSICAL_PRODUCT",
+    DIGITAL_SERVICE: "DIGITAL_SERVICE",
+    PHYSICAL_SERVICE: "PHYSICAL_SERVICE",
+    FEE: "FEE",
+    DISCOUNT: "DISCOUNT",
+}
 
 @doc("Represents a Subscriptions plan")
 model Plan {
@@ -21,13 +48,13 @@ model Plan {
     recurring_cycle_count: int32;
 
     @doc("ISO 4217 currency code of Subscriptions plan")
-    currency: "IDR" | "PHP";
+    currency: CurrencyEnum;
 
     @doc("Amount that Subscriptions plan will charge to end users. Min - Rp 1000 (Indonesia) or PHP 50 (Philippines)")
     amount: int32;
 
     @doc("Status of Subscriptions plan")
-    status: "ACTIVE" | "INACTIVE" | "PENDING" | "REQUIRES_ACTION";
+    status: PlanStatus;
 
     @doc("ISO 8601 Timestamp for Subscriptions plan creation. Timezone UTC+0")
     created: utcDateTime;
@@ -54,7 +81,7 @@ model Plan {
     payment_link_for_failed_attempt?: boolean;
 
     @doc("Indicate the behaviour the Subscriptions plan should take when Subscriptions cycles fail")
-    failed_cycle_action?: "RESUME" | "STOP";
+    failed_cycle_action?: FailedCycleActionEnum;
 
     @doc("Object of additional information the merchants may use")
     metadata?: Record<unknown>;
@@ -80,13 +107,13 @@ model Plan {
 @doc("Represents the notification configuration for a Subscriptions plan")
 model NotificationConfig {
     @doc("Specify which channel you want to notify your end customer through when a Subscriptions plan is created")
-    recurring_created?: ("WHATSAPP" | "EMAIL")[];
+    recurring_created?: NotificationChannelEnum[];
 
     @doc("Specify which channel you want to notify your end customer through when a Subscriptions cycle was successfully completed")
-    recurring_succeeded?: ("WHATSAPP" | "EMAIL")[];
+    recurring_succeeded?: NotificationChannelEnum[];
 
     @doc("Specify which channel you want to notify your end customer through when a Subscriptions cycle has failed")
-    recurring_failed?: ("WHATSAPP" | "EMAIL")[];
+    recurring_failed?: NotificationChannelEnum[];
 
     @doc("ISO 639-1: two-letter codes for language of notifications sent to end user")
     locale?: "en" | "id";
@@ -95,13 +122,7 @@ model NotificationConfig {
 @doc("Represents an item in a Subscriptions plan")
 model Item {
     @doc("Type of item")
-    type:
-        | "DIGITAL_PRODUCT"
-        | "PHYSICAL_PRODUCT"
-        | "DIGITAL_SERVICE"
-        | "PHYSICAL_SERVICE"
-        | "FEE"
-        | "DISCOUNT";
+    type: ItemTypeEnum;
 
     @doc("Item name.")
     @maxLength(255)

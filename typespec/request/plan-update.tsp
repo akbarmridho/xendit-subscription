@@ -8,7 +8,7 @@ namespace PlanUpdate {
         customer_id?: string;
 
         @doc("ISO 4217 currency code of Subscriptions plan")
-        currency?: "IDR" | "PHP";
+        currency?: CurrencyEnum;
 
         @doc("Amount that Subscriptions plan will charge to end users. Min - Rp 1000 (Indonesia) or PHP 50 (Philippines)")
         amount?: int32;
