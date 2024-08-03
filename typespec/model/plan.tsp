@@ -30,10 +30,10 @@ model Plan {
     status: "ACTIVE" | "INACTIVE" | "PENDING" | "REQUIRES_ACTION";
 
     @doc("ISO 8601 Timestamp for Subscriptions plan creation. Timezone UTC+0")
-    created: string;
+    created: utcDateTime;
 
     @doc("ISO 8601 Timestamp for latest plan object update. Timezone UTC+0")
-    updated: string;
+    updated: utcDateTime;
 
     @doc("Array of payment methods that the Subscriptions plan will attempt to make payments with")
     payment_methods?: PaymentMethod[];

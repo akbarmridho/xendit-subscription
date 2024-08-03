@@ -16,16 +16,16 @@ model Schedule {
     interval_count: int32;
 
     @doc("ISO 8601 Timestamp for recurring schedule creation. Timezone UTC+0")
-    created: string;
+    created: utcDateTime;
 
     @doc("ISO 8601 Timestamp for latest schedule object update. Timezone UTC+0")
-    updated: string;
+    updated: utcDateTime;
 
     @doc("The total number of times the end user will be charged")
     total_recurrence?: int32 | null;
 
     @doc("Timestamp in ISO 8601 used to determine when a Subscriptions plan starts")
-    anchor_date?: string;
+    anchor_date?: utcDateTime;
 
     @doc("The type of interval between failed attempt and retries")
     retry_interval?: "DAY";

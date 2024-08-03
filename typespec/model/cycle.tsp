@@ -42,10 +42,10 @@ model Cycle {
     scheduled_timestamp: string;
 
     @doc("ISO 8601 Timestamp for recurring cycle creation. Timezone UTC+0")
-    created: string;
+    created: utcDateTime;
 
     @doc("ISO 8601 Timestamp for latest cycle object update. Timezone UTC+0")
-    updated: string;
+    updated: utcDateTime;
 
     @doc("ISO 4217 currency code of recurring plan")
     currency: "IDR" | "PHP";
@@ -59,7 +59,7 @@ model AttemptDetail {
     attempt_number: int32;
 
     @doc("ISO 8601 Timestamp for attempted actions. Timezone UTC+0")
-    created: string;
+    created: utcDateTime;
 
     @doc("ID of associated action (e.g. payment ID)")
     action_id: string;
@@ -71,5 +71,5 @@ model AttemptDetail {
     failure_code?: string;
 
     @doc("ISO 8601 Estimated timestamp for next retry. Timezone UTC+0")
-    next_retry_timestamp?: string;
+    next_retry_timestamp?: utcDateTime;
 }

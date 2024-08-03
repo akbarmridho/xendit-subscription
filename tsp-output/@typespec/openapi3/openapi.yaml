@@ -1,0 +1,564 @@
+openapi: 3.0.0
+info:
+  title: Xendit Subscription API
+  version: 0.0.0
+tags: []
+paths:
+  /recurring/plans:
+    post:
+      operationId: Plans_create
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: object
+                    properties:
+                      error_code:
+                        type: string
+                        enum:
+                          - API_VALIDATION_ERROR
+                      message:
+                        type: string
+                    required:
+                      - error_code
+                      - message
+                  - type: object
+                    properties:
+                      error_code:
+                        type: string
+                        enum:
+                          - INVALID_PAYMENT_METHOD_ID
+                      message:
+                        type: string
+                    required:
+                      - error_code
+                      - message
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    enum:
+                      - INVALID_API_KEY
+                  message:
+                    type: string
+                required:
+                  - error_code
+                  - message
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: object
+                    properties:
+                      error_code:
+                        type: string
+                        enum:
+                          - PAYMENT_METHOD_ID_NOT_FOUND
+                      message:
+                        type: string
+                    required:
+                      - error_code
+                      - message
+                  - type: object
+                    properties:
+                      error_code:
+                        type: string
+                        enum:
+                          - CUSTOMER_NOT_FOUND
+                      message:
+                        type: string
+                    required:
+                      - error_code
+                      - message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanCreate.PlanDto'
+components:
+  schemas:
+    Action:
+      type: object
+      required:
+        - action
+      properties:
+        action:
+          type: string
+          enum:
+            - AUTH
+          description: Describes the purpose the corresponding action
+        url_type:
+          type: string
+          enum:
+            - WEB
+          description: Describes the type of URL provided
+        url:
+          type: string
+          description: The generated URL to hit in order to perform the action
+        method:
+          type: string
+          enum:
+            - GET
+            - POST
+          description: HTTP method for calling the url
+      description: Represents an action for a Subscriptions plan
+    Item:
+      type: object
+      required:
+        - type
+        - name
+        - net_unit_amount
+        - quantity
+      properties:
+        type:
+          type: string
+          enum:
+            - DIGITAL_PRODUCT
+            - PHYSICAL_PRODUCT
+            - DIGITAL_SERVICE
+            - PHYSICAL_SERVICE
+            - FEE
+            - DISCOUNT
+          description: Type of item
+        name:
+          type: string
+          maxLength: 255
+          description: Item name.
+        net_unit_amount:
+          type: number
+          format: double
+          description: Net amount to be charged per unit, please put negative amount for DISCOUNT
+        quantity:
+          type: integer
+          format: int32
+          description: Number of units of this item in the basket. Min 1
+        url:
+          type: string
+          description: URL of the item
+        category:
+          type: string
+          maxLength: 255
+          description: Merchant category for item.
+        subcategory:
+          type: string
+          maxLength: 255
+          description: Merchant subcategory for item.
+        description:
+          type: string
+          maxLength: 255
+          description: Item description.
+        metadata:
+          type: object
+          additionalProperties: {}
+          description: Additional object that may be used for additional item attributes
+      description: Represents an item in a Subscriptions plan
+    NotificationConfig:
+      type: object
+      properties:
+        recurring_created:
+          type: array
+          items:
+            type: string
+            enum:
+              - WHATSAPP
+              - EMAIL
+          description: Specify which channel you want to notify your end customer through when a Subscriptions plan is created
+        recurring_succeeded:
+          type: array
+          items:
+            type: string
+            enum:
+              - WHATSAPP
+              - EMAIL
+          description: Specify which channel you want to notify your end customer through when a Subscriptions cycle was successfully completed
+        recurring_failed:
+          type: array
+          items:
+            type: string
+            enum:
+              - WHATSAPP
+              - EMAIL
+          description: Specify which channel you want to notify your end customer through when a Subscriptions cycle has failed
+        locale:
+          type: string
+          enum:
+            - en
+            - id
+          description: 'ISO 639-1: two-letter codes for language of notifications sent to end user'
+      description: Represents the notification configuration for a Subscriptions plan
+    PaymentMethod:
+      type: object
+      required:
+        - payment_method_id
+        - rank
+        - type
+      properties:
+        payment_method_id:
+          type: string
+          description: ID for payment_method_id generated by Create Payment Method API
+        rank:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 5
+          description: Indicate the order which payments methods will be attempted for a payment cycle instance.
+        type:
+          type: string
+          enum:
+            - EWALLET
+            - DIRECT_DEBIT
+            - CARD
+          description: Type of payment method
+      description: Represents a payment method for a Subscriptions plan
+    Plan:
+      type: object
+      required:
+        - id
+        - reference_id
+        - customer_id
+        - recurring_action
+        - recurring_cycle_count
+        - currency
+        - amount
+        - status
+        - created
+        - updated
+        - schedule
+      properties:
+        id:
+          type: string
+          description: Xendit-generated Subscriptions plan ID, with prefix repl-xxx
+        reference_id:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: Merchant-provided identifier for the Subscriptions plan.
+        customer_id:
+          type: string
+          description: Xendit-generated customer ID, with prefix cust-xxx
+        recurring_action:
+          type: string
+          enum:
+            - PAYMENT
+          description: The type of Subscriptions action requested
+        recurring_cycle_count:
+          type: integer
+          format: int32
+          description: Total number of cycles the Subscriptions plan has executed. Immediate charge cycle also counts as 1 cycle count
+        currency:
+          type: string
+          enum:
+            - IDR
+            - PHP
+          description: ISO 4217 currency code of Subscriptions plan
+        amount:
+          type: integer
+          format: int32
+          description: Amount that Subscriptions plan will charge to end users. Min - Rp 1000 (Indonesia) or PHP 50 (Philippines)
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+            - PENDING
+            - REQUIRES_ACTION
+          description: Status of Subscriptions plan
+        created:
+          type: string
+          format: date-time
+          description: ISO 8601 Timestamp for Subscriptions plan creation. Timezone UTC+0
+        updated:
+          type: string
+          format: date-time
+          description: ISO 8601 Timestamp for latest plan object update. Timezone UTC+0
+        payment_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+          description: Array of payment methods that the Subscriptions plan will attempt to make payments with
+        schedule_id:
+          type: string
+          description: Xendit-generated Subscriptions schedule ID
+        schedule:
+          allOf:
+            - $ref: '#/components/schemas/Schedule'
+          description: Data object containing the configurations of how Subscriptions cycles will be scheduled
+        immediate_action_type:
+          type: string
+          enum:
+            - FULL_AMOUNT
+          description: The type of action the Subscriptions plan takes upon creation
+        notification_config:
+          allOf:
+            - $ref: '#/components/schemas/NotificationConfig'
+          description: Object containing notification preferences for the Subscriptions plan
+        payment_link_for_failed_attempt:
+          type: boolean
+          description: Indicates whether the plan should generate a payment link to be sent to the end customer when the first attempt of the cycle fails
+        failed_cycle_action:
+          type: string
+          enum:
+            - RESUME
+            - STOP
+          description: Indicate the behaviour the Subscriptions plan should take when Subscriptions cycles fail
+        metadata:
+          type: object
+          additionalProperties: {}
+          description: Object of additional information the merchants may use
+        description:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          description: Description of Subscriptions plan.
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+          description: Array of objects describing the item/s
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
+          description: Array of objects that contain URLs for end users to complete their Subscriptions plan
+        success_return_url:
+          type: string
+          description: URL where the end user is redirected after account linking has been successful
+        failure_return_url:
+          type: string
+          description: URL where the end-customer is redirected if the account linking has failed
+      description: Represents a Subscriptions plan
+    PlanCreate.PlanDto:
+      type: object
+      properties:
+        payment_methods:
+          type: array
+          items:
+            type: object
+            required:
+              - payment_method_id
+              - rank
+            properties:
+              payment_method_id:
+                type: string
+                description: ID for payment_method_id generated by Create Payment Method API
+              rank:
+                type: integer
+                format: int32
+                minimum: 1
+                maximum: 5
+                description: Indicate the order which payments methods will be attempted for a payment cycle instance.
+            description: The template for omitting properties.
+        schedule:
+          type: object
+          required:
+            - reference_id
+            - interval
+            - interval_count
+          properties:
+            reference_id:
+              type: string
+              description: Merchant-provided identifier for the schedule
+            interval:
+              type: string
+              enum:
+                - DAY
+                - WEEK
+                - MONTH
+              description: The type of interval between consecutive Subscriptions cycles
+            interval_count:
+              type: integer
+              format: int32
+              description: The number of units of interval between consecutive Subscriptions cycles
+            total_recurrence:
+              type: integer
+              format: int32
+              nullable: true
+              description: The total number of times the end user will be charged
+            anchor_date:
+              type: string
+              format: date-time
+              description: Timestamp in ISO 8601 used to determine when a Subscriptions plan starts
+            retry_interval:
+              type: string
+              enum:
+                - DAY
+              description: The type of interval between failed attempt and retries
+            retry_interval_count:
+              type: integer
+              format: int32
+              description: The number of units of retry_interval between consecutive retries
+            total_retry:
+              type: integer
+              format: int32
+              minimum: 1
+              maximum: 10
+              description: The number of times you will retry a failed Subscriptions cycle.
+            failed_attempt_notifications:
+              type: array
+              items:
+                type: integer
+                format: int32
+              description: Specify which retry attempts will have failed Subscriptions notifications to the end user
+          description: The template for omitting properties.
+      allOf:
+        - type: object
+          required:
+            - customer_id
+            - recurring_action
+            - currency
+            - amount
+          properties:
+            customer_id:
+              type: string
+              description: Xendit-generated customer ID, with prefix cust-xxx
+            recurring_action:
+              type: string
+              enum:
+                - PAYMENT
+              description: The type of Subscriptions action requested
+            currency:
+              type: string
+              enum:
+                - IDR
+                - PHP
+              description: ISO 4217 currency code of Subscriptions plan
+            amount:
+              type: integer
+              format: int32
+              description: Amount that Subscriptions plan will charge to end users. Min - Rp 1000 (Indonesia) or PHP 50 (Philippines)
+            immediate_action_type:
+              type: string
+              enum:
+                - FULL_AMOUNT
+              description: The type of action the Subscriptions plan takes upon creation
+            notification_config:
+              allOf:
+                - $ref: '#/components/schemas/NotificationConfig'
+              description: Object containing notification preferences for the Subscriptions plan
+            payment_link_for_failed_attempt:
+              type: boolean
+              description: Indicates whether the plan should generate a payment link to be sent to the end customer when the first attempt of the cycle fails
+            failed_cycle_action:
+              type: string
+              enum:
+                - RESUME
+                - STOP
+              description: Indicate the behaviour the Subscriptions plan should take when Subscriptions cycles fail
+            metadata:
+              type: object
+              additionalProperties: {}
+              description: Object of additional information the merchants may use
+            description:
+              type: string
+              minLength: 1
+              maxLength: 1000
+              description: Description of Subscriptions plan.
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Item'
+              description: Array of objects describing the item/s
+            actions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Action'
+              description: Array of objects that contain URLs for end users to complete their Subscriptions plan
+            success_return_url:
+              type: string
+              description: URL where the end user is redirected after account linking has been successful
+            failure_return_url:
+              type: string
+              description: URL where the end-customer is redirected if the account linking has failed
+          description: The template for omitting properties.
+    Schedule:
+      type: object
+      required:
+        - id
+        - reference_id
+        - business_id
+        - interval
+        - interval_count
+        - created
+        - updated
+      properties:
+        id:
+          type: string
+          description: Xendit-generated Subscriptions schedule ID
+        reference_id:
+          type: string
+          description: Merchant-provided identifier for the schedule
+        business_id:
+          type: string
+          description: Xendit-generated identifier for the business
+        interval:
+          type: string
+          enum:
+            - DAY
+            - WEEK
+            - MONTH
+          description: The type of interval between consecutive Subscriptions cycles
+        interval_count:
+          type: integer
+          format: int32
+          description: The number of units of interval between consecutive Subscriptions cycles
+        created:
+          type: string
+          format: date-time
+          description: ISO 8601 Timestamp for recurring schedule creation. Timezone UTC+0
+        updated:
+          type: string
+          format: date-time
+          description: ISO 8601 Timestamp for latest schedule object update. Timezone UTC+0
+        total_recurrence:
+          type: integer
+          format: int32
+          nullable: true
+          description: The total number of times the end user will be charged
+        anchor_date:
+          type: string
+          format: date-time
+          description: Timestamp in ISO 8601 used to determine when a Subscriptions plan starts
+        retry_interval:
+          type: string
+          enum:
+            - DAY
+          description: The type of interval between failed attempt and retries
+        retry_interval_count:
+          type: integer
+          format: int32
+          description: The number of units of retry_interval between consecutive retries
+        total_retry:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 10
+          description: The number of times you will retry a failed Subscriptions cycle.
+        failed_attempt_notifications:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Specify which retry attempts will have failed Subscriptions notifications to the end user
+      description: Represents the schedule configuration for a Subscriptions plan
+servers:
+  - url: https://api.xendit.co
+    description: Xendit API endpoint
+    variables: {}
