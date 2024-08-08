@@ -13,7 +13,6 @@ namespace PlanCreate {
             Plan,
 
                 | "id"
-                | "reference_id"
                 | "recurring_cycle_count"
                 | "status"
                 | "created"
