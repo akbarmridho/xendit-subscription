@@ -22,6 +22,6 @@ namespace PlanCreate {
                 | "schedule"
         > {
         payment_methods?: PaymentMethodDto[];
-        schedule?: ScheduleDto;
+        schedule: ScheduleDto;
     }
 }

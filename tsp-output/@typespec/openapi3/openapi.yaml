@@ -1319,6 +1319,8 @@ components:
               type: string
     PlanCreate.PlanDto:
       type: object
+      required:
+        - schedule
       properties:
         payment_methods:
           type: array
@@ -1390,11 +1392,17 @@ components:
       allOf:
         - type: object
           required:
+            - reference_id
             - customer_id
             - recurring_action
             - currency
             - amount
           properties:
+            reference_id:
+              type: string
+              minLength: 1
+              maxLength: 64
+              description: Merchant-provided identifier for the Subscriptions plan.
             customer_id:
               type: string
               description: Xendit-generated customer ID, with prefix cust-xxx
