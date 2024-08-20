@@ -7,13 +7,13 @@ enum ScheduleIntervalEnum {
 @doc("Represents the schedule configuration for a Subscriptions plan")
 model Schedule {
     @doc("Xendit-generated Subscriptions schedule ID")
-    id: string;
+    id?: string;
 
     @doc("Merchant-provided identifier for the schedule")
     reference_id: string;
 
     @doc("Xendit-generated identifier for the business")
-    business_id: string;
+    business_id?: string;
 
     @doc("The type of interval between consecutive Subscriptions cycles")
     interval: ScheduleIntervalEnum;

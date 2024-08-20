@@ -15,5 +15,5 @@ model PaymentMethod {
     rank: int32;
 
     @doc("Type of payment method")
-    type: PaymentMethodTypeEnum;
+    type?: PaymentMethodTypeEnum;
 }

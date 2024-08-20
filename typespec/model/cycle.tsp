@@ -68,6 +68,8 @@ model Cycle {
 
     @doc("Amount that recurring plan will charge to end users. Min - IDR 1,000 (Indonesia) / PHP 50 (Philippines)")
     amount: int32;
+
+    failure_code?: string;
 }
 
 model AttemptDetail {

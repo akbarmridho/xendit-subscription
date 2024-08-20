@@ -54,6 +54,10 @@ paths:
                           - API_VALIDATION_ERROR
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -65,6 +69,10 @@ paths:
                           - INVALID_PAYMENT_METHOD_ID
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -81,6 +89,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -98,6 +110,10 @@ paths:
                           - PAYMENT_METHOD_ID_NOT_FOUND
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -109,6 +125,10 @@ paths:
                           - CUSTOMER_NOT_FOUND
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -155,6 +175,10 @@ paths:
                           - API_VALIDATION_ERROR
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -166,6 +190,10 @@ paths:
                           - INVALID_PAYMENT_METHOD_ID
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -182,6 +210,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -199,6 +231,10 @@ paths:
                           - PAYMENT_METHOD_ID_NOT_FOUND
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -210,6 +246,10 @@ paths:
                           - CUSTOMER_NOT_FOUND
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -247,6 +287,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -263,6 +307,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -279,6 +327,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -332,6 +384,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -348,6 +404,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -364,6 +424,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -396,6 +460,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -412,6 +480,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -428,6 +500,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -465,6 +541,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -481,6 +561,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -497,6 +581,10 @@ paths:
                       - INELIGIBLE_CYCLE_REQUEST
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -513,6 +601,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -555,6 +647,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -571,6 +667,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -587,6 +687,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -624,6 +728,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -640,6 +748,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -656,6 +768,10 @@ paths:
                       - INELIGIBLE_CYCLE_REQUEST
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -672,6 +788,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -710,6 +830,10 @@ paths:
                           - INELIGIBLE_CYCLE_REQUEST
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -721,6 +845,10 @@ paths:
                           - MAXIMUM_LIMIT_REACHED
                       message:
                         type: string
+                      errors:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ErrorField'
                     required:
                       - error_code
                       - message
@@ -737,6 +865,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -769,6 +901,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -785,6 +921,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -801,6 +941,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -838,6 +982,10 @@ paths:
                       - API_VALIDATION_ERROR
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -854,6 +1002,10 @@ paths:
                       - INVALID_API_KEY
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -870,6 +1022,10 @@ paths:
                       - DATA_NOT_FOUND
                   message:
                     type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ErrorField'
                 required:
                   - error_code
                   - message
@@ -1028,6 +1184,8 @@ components:
           type: integer
           format: int32
           description: Amount that recurring plan will charge to end users. Min - IDR 1,000 (Indonesia) / PHP 50 (Philippines)
+        failure_code:
+          type: string
     CycleCallback:
       type: object
       allOf:
@@ -1073,6 +1231,13 @@ components:
         amount:
           type: integer
           format: int32
+    ErrorField:
+      type: object
+      properties:
+        path:
+          type: string
+        message:
+          type: string
     FailedCycleActionEnum:
       type: string
       enum:
@@ -1136,6 +1301,7 @@ components:
       enum:
         - WHATSAPP
         - EMAIL
+        - SMS
     NotificationConfig:
       type: object
       properties:
@@ -1166,7 +1332,6 @@ components:
       required:
         - payment_method_id
         - rank
-        - type
       properties:
         payment_method_id:
           type: string
@@ -1195,7 +1360,6 @@ components:
         - reference_id
         - customer_id
         - recurring_action
-        - recurring_cycle_count
         - currency
         - amount
         - status
@@ -1296,6 +1460,8 @@ components:
         failure_return_url:
           type: string
           description: URL where the end-customer is redirected if the account linking has failed
+        failure_code:
+          type: string
       description: Represents a Subscriptions plan
     PlanCallback:
       type: object
@@ -1341,54 +1507,7 @@ components:
                 description: Indicate the order which payments methods will be attempted for a payment cycle instance.
             description: The template for omitting properties.
         schedule:
-          type: object
-          required:
-            - reference_id
-            - interval
-            - interval_count
-          properties:
-            reference_id:
-              type: string
-              description: Merchant-provided identifier for the schedule
-            interval:
-              allOf:
-                - $ref: '#/components/schemas/ScheduleIntervalEnum'
-              description: The type of interval between consecutive Subscriptions cycles
-            interval_count:
-              type: integer
-              format: int32
-              description: The number of units of interval between consecutive Subscriptions cycles
-            total_recurrence:
-              type: integer
-              format: int32
-              nullable: true
-              description: The total number of times the end user will be charged
-            anchor_date:
-              type: string
-              format: date-time
-              description: Timestamp in ISO 8601 used to determine when a Subscriptions plan starts
-            retry_interval:
-              type: string
-              enum:
-                - DAY
-              description: The type of interval between failed attempt and retries
-            retry_interval_count:
-              type: integer
-              format: int32
-              description: The number of units of retry_interval between consecutive retries
-            total_retry:
-              type: integer
-              format: int32
-              minimum: 1
-              maximum: 10
-              description: The number of times you will retry a failed Subscriptions cycle.
-            failed_attempt_notifications:
-              type: array
-              items:
-                type: integer
-                format: int32
-              description: Specify which retry attempts will have failed Subscriptions notifications to the end user
-          description: The template for omitting properties.
+          $ref: '#/components/schemas/PlanCreate.ScheduleDto'
       allOf:
         - type: object
           required:
@@ -1460,7 +1579,57 @@ components:
             failure_return_url:
               type: string
               description: URL where the end-customer is redirected if the account linking has failed
+            failure_code:
+              type: string
           description: The template for omitting properties.
+    PlanCreate.ScheduleDto:
+      type: object
+      required:
+        - reference_id
+        - interval
+        - interval_count
+      properties:
+        reference_id:
+          type: string
+          description: Merchant-provided identifier for the schedule
+        interval:
+          allOf:
+            - $ref: '#/components/schemas/ScheduleIntervalEnum'
+          description: The type of interval between consecutive Subscriptions cycles
+        interval_count:
+          type: integer
+          format: int32
+          description: The number of units of interval between consecutive Subscriptions cycles
+        total_recurrence:
+          type: integer
+          format: int32
+          nullable: true
+          description: The total number of times the end user will be charged
+        anchor_date:
+          type: string
+          format: date-time
+          description: Timestamp in ISO 8601 used to determine when a Subscriptions plan starts
+        retry_interval:
+          type: string
+          enum:
+            - DAY
+          description: The type of interval between failed attempt and retries
+        retry_interval_count:
+          type: integer
+          format: int32
+          description: The number of units of retry_interval between consecutive retries
+        total_retry:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 10
+          description: The number of times you will retry a failed Subscriptions cycle.
+        failed_attempt_notifications:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Specify which retry attempts will have failed Subscriptions notifications to the end user
     PlanStatus:
       type: string
       enum:
@@ -1530,9 +1699,7 @@ components:
     Schedule:
       type: object
       required:
-        - id
         - reference_id
-        - business_id
         - interval
         - interval_count
         - created

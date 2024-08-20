@@ -5,6 +5,11 @@ import "@typespec/openapi3";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 
+model ErrorField {
+    path?: string;
+    message?: string;
+}
+
 @error
 model ApiValidationErrorResponse {
     @statusCode statusCode: 400;
@@ -12,6 +17,7 @@ model ApiValidationErrorResponse {
     @body data: {
         error_code: "API_VALIDATION_ERROR";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -22,6 +28,7 @@ model InvalidPaymentMethodErrorResponse {
     @body data: {
         error_code: "INVALID_PAYMENT_METHOD_ID";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -32,6 +39,7 @@ model InvalidApiKeyErrorResponse {
     @body data: {
         error_code: "INVALID_API_KEY";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -42,6 +50,7 @@ model PaymentMethodIdNotFoundResponse {
     @body data: {
         error_code: "PAYMENT_METHOD_ID_NOT_FOUND";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -52,6 +61,7 @@ model CustomerNotFoundResponse {
     @body data: {
         error_code: "CUSTOMER_NOT_FOUND";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -62,6 +72,7 @@ model DataNotFoundResponse {
     @body data: {
         error_code: "DATA_NOT_FOUND";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -72,6 +83,7 @@ model IneligibleCycleRequestResponse {
     @body data: {
         error_code: "INELIGIBLE_CYCLE_REQUEST";
         message: string;
+        errors?: ErrorField[];
     };
 }
 
@@ -82,6 +94,7 @@ model MaximumLimitReachedResponse {
     @body data: {
         error_code: "MAXIMUM_LIMIT_REACHED";
         message: string;
+        errors?: ErrorField[];
     };
 }
 

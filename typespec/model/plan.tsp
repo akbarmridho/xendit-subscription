@@ -17,6 +17,7 @@ enum FailedCycleActionEnum {
 enum NotificationChannelEnum {
     WHATSAPP: "WHATSAPP",
     EMAIL: "EMAIL",
+    SMS: "SMS",
 }
 
 enum ItemTypeEnum {
@@ -45,7 +46,7 @@ model Plan {
     recurring_action: "PAYMENT";
 
     @doc("Total number of cycles the Subscriptions plan has executed. Immediate charge cycle also counts as 1 cycle count")
-    recurring_cycle_count: int32;
+    recurring_cycle_count?: int32;
 
     @doc("ISO 4217 currency code of Subscriptions plan")
     currency: CurrencyEnum;
@@ -102,6 +103,8 @@ model Plan {
 
     @doc("URL where the end-customer is redirected if the account linking has failed")
     failure_return_url?: string;
+
+    failure_code?: string;
 }
 
 @doc("Represents the notification configuration for a Subscriptions plan")
