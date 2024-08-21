@@ -74,7 +74,7 @@ model Cycle {
     @doc("Object of additional information the merchants may use")
     metadata?: Record<unknown>;
 
-    forced_attempt_count: int32;
+    forced_attempt_count?: int32;
 }
 
 model AttemptDetail {

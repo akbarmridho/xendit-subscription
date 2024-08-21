@@ -1067,11 +1067,14 @@ components:
     AttemptDetail:
       type: object
       required:
+        - type
         - attempt_number
         - created
         - action_id
         - status
       properties:
+        type:
+          type: string
         attempt_number:
           type: integer
           format: int32
@@ -1094,6 +1097,11 @@ components:
           type: string
           format: date-time
           description: ISO 8601 Estimated timestamp for next retry. Timezone UTC+0
+        payment_link:
+          type: string
+        action_number:
+          type: integer
+          format: int32
     AttemptDetailEnum:
       type: string
       enum:
@@ -1186,6 +1194,13 @@ components:
           description: Amount that recurring plan will charge to end users. Min - IDR 1,000 (Indonesia) / PHP 50 (Philippines)
         failure_code:
           type: string
+        metadata:
+          type: object
+          additionalProperties: {}
+          description: Object of additional information the merchants may use
+        forced_attempt_count:
+          type: integer
+          format: int32
     CycleCallback:
       type: object
       allOf:
