@@ -70,9 +70,16 @@ model Cycle {
     amount: int32;
 
     failure_code?: string;
+
+    @doc("Object of additional information the merchants may use")
+    metadata?: Record<unknown>;
+
+    forced_attempt_count: int32;
 }
 
 model AttemptDetail {
+    type: string;
+
     @doc("A numbering that tracks the order of cycle attempts")
     attempt_number: int32;
 
@@ -90,4 +97,7 @@ model AttemptDetail {
 
     @doc("ISO 8601 Estimated timestamp for next retry. Timezone UTC+0")
     next_retry_timestamp?: utcDateTime;
+
+    payment_link?: string;
+    action_number?: int32;
 }
